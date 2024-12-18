@@ -1,21 +1,23 @@
-import pytest
 import datetime
+
+import pytest
 
 from app.main import outdated_products
 
 
 @pytest.fixture()
-def products():
+def products() -> list:
     return [
         {
             "name": "yogurt",
-            "expiration_date": datetime.date.today() - datetime.timedelta(days=1),
-            "price": 160
+            "expiration_date": (datetime.date.today()
+                                - datetime.timedelta(days=1)),
+            "price": 160,
         },
         {
             "name": "salmon",
             "expiration_date": datetime.date(2024, 12, 19),
-            "price": 600
+            "price": 600,
         },
         {
             "name": "orange",
@@ -25,7 +27,7 @@ def products():
         {
             "name": "chicken",
             "expiration_date": datetime.date(2024, 12, 20),
-            "price": 120
+            "price": 120,
         },
         {
             "name": "duck",
@@ -35,6 +37,5 @@ def products():
     ]
 
 
-
-def test_outdated_products(products):
+def test_outdated_products(products: list) -> None:
     assert outdated_products(products) == ["yogurt", "duck"]
